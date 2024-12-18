@@ -14,7 +14,15 @@ class OnBoardingController {
   int currentPositionPage = 0;
   void onTapDotIndicator(int indexPosition) {
     currentPositionPage = indexPosition;
-        inputData.add(currentPositionPage);
+    inputData.add(currentPositionPage);
+  }
 
+  void onTapNext() {
+    if (currentPositionPage == 2) {
+      currentPositionPage = 0;
+    } else {
+      currentPositionPage++;
+    }
+    inputData.add(currentPositionPage);
   }
 }

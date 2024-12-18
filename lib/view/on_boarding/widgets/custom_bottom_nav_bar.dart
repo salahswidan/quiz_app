@@ -6,11 +6,12 @@ class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
     super.key,
     required this.dotCount,
-    required this.onTap, required this.outputDataDotIndicator,
+    required this.onTapDotIndicator, required this.outputDataDotIndicator, required this.onTapNext,
   });
   final int dotCount;
-  final void Function(int index) onTap;
+  final void Function(int index) onTapDotIndicator;
   final Stream<int> outputDataDotIndicator;
+  final GestureTapCallback onTapNext;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +34,17 @@ class CustomBottomNavBar extends StatelessWidget {
                 color: ColorManager.kGreyColor,
               ),
               onTap: (position) {
-                onTap(position);
+                onTapDotIndicator(position);
               },
               dotsCount: dotCount,
               position: snapshot.data == null ? 0 : snapshot.data!,
             ),
           ),
-          Text("next",
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15))
+          InkWell(
+            onTap: onTapNext,
+            child: Text("next",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15)),
+          )
         ],
       ),
     );

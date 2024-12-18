@@ -29,12 +29,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     PageController pageController = PageController();
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBar(
+        onTapNext: () {
+          _onBoardingController.onTapNext();
+        },
         outputDataDotIndicator: _onBoardingController.outputData,
-        onTap: (index) {
+        onTapDotIndicator: (index) {
           _onBoardingController.onTapDotIndicator(index);
         },
         dotCount: 3,
-      //  currentPositionPage: _onBoardingController.currentPositionPage,
+        //  currentPositionPage: _onBoardingController.currentPositionPage,
       ),
       body: Column(
         children: [
