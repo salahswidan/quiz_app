@@ -1,10 +1,16 @@
-
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
     super.key,
+    required this.dotCount,
+    required this.onTap, required this.outputDataDotIndicator,
   });
+  final int dotCount;
+  final void Function(int index) onTap;
+  final Stream<int> outputDataDotIndicator;
 
   @override
   Widget build(BuildContext context) {
@@ -17,18 +23,20 @@ class CustomBottomNavBar extends StatelessWidget {
             "skip",
             style: TextStyle(fontSize: 15),
           ),
-          Container(
-            width: 50,
-            height: 50,
-            child: ListView.separated(
-              separatorBuilder: (context, index) =>
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 2.5)),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => CircleAvatar(
-                radius: 5,
-                backgroundColor: Colors.red,
+          StreamBuilder(
+            stream: outputDataDotIndicator,
+            builder: (context, snapshot) =>  DotsIndicator(
+              decorator: DotsDecorator(
+                size: Size(12, 12),
+                activeSize: Size(12, 12),
+                activeColor: ColorManager.kDarkPanfsagColor,
+                color: ColorManager.kGreyColor,
               ),
-              itemCount: 3,
+              onTap: (position) {
+                onTap(position);
+              },
+              dotsCount: dotCount,
+              position: snapshot.data == null ? 0 : snapshot.data!,
             ),
           ),
           Text("next",
@@ -38,3 +46,18 @@ class CustomBottomNavBar extends StatelessWidget {
     );
   }
 }
+          // Container(
+          //   width: 50,
+          //   height: 50,
+          //   child: ListView.separated(
+          //     separatorBuilder: (context, index) =>
+          //         Padding(padding: EdgeInsets.symmetric(horizontal: 2.5)),
+          //     scrollDirection: Axis.horizontal,
+          //     itemBuilder: (context, index) => CircleAvatar(
+          //       radius: 5,
+          //       backgroundColor: Colors.red,
+          //     ),
+          //     itemCount: 3,
+          //   ),
+          // ),
+          
