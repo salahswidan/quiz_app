@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app_new/controller/splash/splash_controller.dart';
 import 'package:quiz_app_new/core/resources/color_manager.dart';
+
+import '../../on_boarding/screens/on_boarding_screen.dart';
+import '../widgets/custom_botton_splash_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -20,22 +24,10 @@ class SplashScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            MaterialButton(
-              onPressed: () {},
-              child: Container(
-                width: double.infinity,
-                height: 70,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(35)),
-                child: Center(
-                  child: Text(
-                    "Get Started",
-                    style: GoogleFonts.montserrat(
-                        fontSize: 21, color: Colors.black),
-                  ),
-                ),
-              ),
+            CustomBottonSplashScreen(
+              onPressed: () {
+                SplashController.goToOnBoarding(context: context);
+              },
             )
           ],
         ),

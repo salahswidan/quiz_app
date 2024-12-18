@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app_new/core/resources/route_manager.dart';
 import 'view/splash/screens/splash_screen.dart';
 
 void main() {
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: "main"),
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+     routes: RouteManager.routes,
+     initialRoute: RoutesName.KsplashScreen,
     );
   }
 }
