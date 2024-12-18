@@ -25,4 +25,9 @@ class OnBoardingController {
     }
     inputData.add(currentPositionPage);
   }
+
+  void onDispose() {
+    streamController.close();
+    inputData.close();
+  }
 }
