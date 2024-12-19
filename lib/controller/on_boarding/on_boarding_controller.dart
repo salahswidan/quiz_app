@@ -3,28 +3,40 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class OnBoardingController {
-  late StreamController<int> streamController;
-  late Sink<int> inputData;
-  late Stream<int> outputData;
+  late StreamController<int> streamControllerDotIndicator;
+  late Sink<int> inputDataDotIndicator;
+  late Stream<int> outputDataDotIndicator;
+  late StreamController<int> streamControllerStartText;
+  late Sink<int> inputDataStartText;
+  late Stream<int> outputDataStartText;
   late PageController onBoardingPageViewController;
 
   OnBoardingController() {
-    streamController = StreamController();
-    inputData = streamController.sink;
-    outputData = streamController.stream;
-    inputData.add(currentPositionPage);
+    streamControllerDotIndicator = StreamController();
+    inputDataDotIndicator = streamControllerDotIndicator.sink;
+    outputDataDotIndicator = streamControllerDotIndicator.stream;
+        inputDataDotIndicator.add(currentPositionPage);
+
+
+    streamControllerStartText = StreamController();
+    inputDataStartText = streamControllerStartText.sink;
+    outputDataStartText = streamControllerStartText.stream;
+        inputDataStartText.add(currentPositionPage);
+
     onBoardingPageViewController =
         PageController(initialPage: currentPositionPage);
   }
   int currentPositionPage = 0;
   void onTapDotIndicator(int indexPosition) {
     currentPositionPage = indexPosition;
-    inputData.add(currentPositionPage);
+    inputDataDotIndicator.add(currentPositionPage);
     onBoardingPageViewController.animateToPage(
       duration: Duration(milliseconds: 400),
       curve: Curves.easeInOut,
       currentPositionPage,
     );
+            inputDataStartText.add(currentPositionPage);
+
   }
 
   void onTapNext() {
@@ -38,12 +50,17 @@ class OnBoardingController {
       curve: Curves.easeInOut,
       currentPositionPage,
     );
-    inputData.add(currentPositionPage);
+    inputDataDotIndicator.add(currentPositionPage);
+            inputDataStartText.add(currentPositionPage);
+
   }
 
   void onDispose() {
-    streamController.close();
-    inputData.close();
+    streamControllerDotIndicator.close();
+    inputDataDotIndicator.close();
     onBoardingPageViewController.dispose();
+            inputDataStartText.close();
+            streamControllerStartText.close();
+
   }
 }

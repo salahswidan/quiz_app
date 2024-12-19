@@ -34,19 +34,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // PageController pageController = PageController();
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBar(
+        outputDataTextStart: _onBoardingController.outputDataStartText,
         onTapNext: () {
           _onBoardingController.onTapNext();
         },
-        outputDataDotIndicator: _onBoardingController.outputData,
+        outputDataDotIndicator: _onBoardingController.outputDataDotIndicator,
         onTapDotIndicator: (index) {
           _onBoardingController.onTapDotIndicator(index);
         },
-        dotCount: 3,
+        dotCount: ConstValues.onBoardingListConst.length,
       ),
       body: PageView.builder(
+        onPageChanged: (value) {
+          _onBoardingController.onTapDotIndicator(value);
+        },
         itemCount: ConstValues.onBoardingListConst.length,
         controller: _onBoardingController.onBoardingPageViewController,
         itemBuilder: (context, index) => CustomItemsPageViewOnBoarding(
