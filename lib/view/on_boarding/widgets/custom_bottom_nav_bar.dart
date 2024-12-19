@@ -6,13 +6,14 @@ class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
     super.key,
     required this.dotCount,
-    required this.onTapDotIndicator, required this.outputDataDotIndicator, required this.onTapNext, required this.outputDataTextStart,
+    required this.onTapDotIndicator, required this.outputDataDotIndicator, required this.onTapNext, required this.outputDataTextStart, required this.onTapSkip,
   });
   final int dotCount;
   final void Function(int index) onTapDotIndicator;
   final Stream<int> outputDataDotIndicator;
   final Stream<int> outputDataTextStart;
   final GestureTapCallback onTapNext;
+  final GestureTapCallback onTapSkip;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +22,12 @@ class CustomBottomNavBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "skip",
-            style: TextStyle(fontSize: 15),
+          InkWell(
+            onTap: onTapSkip,
+            child: Text(
+              "skip",
+              style: TextStyle(fontSize: 15),
+            ),
           ),
           StreamBuilder(
             stream: outputDataDotIndicator,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app_new/core/resources/route_manager.dart';
 
 class OnBoardingController {
   late StreamController<int> streamControllerDotIndicator;
@@ -15,13 +16,12 @@ class OnBoardingController {
     streamControllerDotIndicator = StreamController();
     inputDataDotIndicator = streamControllerDotIndicator.sink;
     outputDataDotIndicator = streamControllerDotIndicator.stream;
-        inputDataDotIndicator.add(currentPositionPage);
-
+    inputDataDotIndicator.add(currentPositionPage);
 
     streamControllerStartText = StreamController();
     inputDataStartText = streamControllerStartText.sink;
     outputDataStartText = streamControllerStartText.stream;
-        inputDataStartText.add(currentPositionPage);
+    inputDataStartText.add(currentPositionPage);
 
     onBoardingPageViewController =
         PageController(initialPage: currentPositionPage);
@@ -35,13 +35,12 @@ class OnBoardingController {
       curve: Curves.easeInOut,
       currentPositionPage,
     );
-            inputDataStartText.add(currentPositionPage);
-
+    inputDataStartText.add(currentPositionPage);
   }
 
-  void onTapNext() {
+  void onTapNext(BuildContext context) {
     if (currentPositionPage == 2) {
-      currentPositionPage = 0;
+      goToLoginPage(context: context);
     } else {
       currentPositionPage++;
     }
@@ -51,16 +50,19 @@ class OnBoardingController {
       currentPositionPage,
     );
     inputDataDotIndicator.add(currentPositionPage);
-            inputDataStartText.add(currentPositionPage);
+    inputDataStartText.add(currentPositionPage);
+  }
 
+  void goToLoginPage({required BuildContext context}) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, RoutesName.KLoginScreen, (route) => false);
   }
 
   void onDispose() {
     streamControllerDotIndicator.close();
     inputDataDotIndicator.close();
     onBoardingPageViewController.dispose();
-            inputDataStartText.close();
-            streamControllerStartText.close();
-
+    inputDataStartText.close();
+    streamControllerStartText.close();
   }
 }

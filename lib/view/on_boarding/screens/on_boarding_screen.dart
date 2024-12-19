@@ -36,9 +36,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBar(
+        onTapSkip: () {
+          _onBoardingController.goToLoginPage(context: context);
+        },
         outputDataTextStart: _onBoardingController.outputDataStartText,
         onTapNext: () {
-          _onBoardingController.onTapNext();
+          _onBoardingController.onTapNext(context);
         },
         outputDataDotIndicator: _onBoardingController.outputDataDotIndicator,
         onTapDotIndicator: (index) {
