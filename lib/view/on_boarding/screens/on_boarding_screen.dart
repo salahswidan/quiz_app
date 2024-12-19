@@ -1,10 +1,6 @@
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:quiz_app_new/core/const_values.dart';
-import 'package:quiz_app_new/models/on_boarding_screen/on_boarding_screen_model.dart';
-
 import '../../../controller/on_boarding/on_boarding_controller.dart';
+import '../../../core/const_values.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
 import '../widgets/custom_items_page_view_on_boarding.dart';
 
@@ -45,13 +41,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         },
         outputDataDotIndicator: _onBoardingController.outputDataDotIndicator,
         onTapDotIndicator: (index) {
+          _onBoardingController.isTappedDotIndicator = true;
           _onBoardingController.onTapDotIndicator(index);
         },
         dotCount: ConstValues.onBoardingListConst.length,
       ),
       body: PageView.builder(
         onPageChanged: (value) {
-          _onBoardingController.onTapDotIndicator(value);
+          if(_onBoardingController.isTappedDotIndicator == true) {
+            if(_onBoardingController.onBoardingPageViewController.page!.round() == _onBoardingController.currentPositionPage ){
+              _onBoardingController.isTappedDotIndicator = false;
+            }
+
+          }else {
+            _onBoardingController.onTapDotIndicator(value);
+          }
+
         },
         itemCount: ConstValues.onBoardingListConst.length,
         controller: _onBoardingController.onBoardingPageViewController,
