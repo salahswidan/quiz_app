@@ -1,15 +1,17 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quiz_app_new/core/const_values.dart';
+import 'package:quiz_app_new/models/on_boarding_screen/on_boarding_screen_model.dart';
 
 import '../../../controller/on_boarding/on_boarding_controller.dart';
 import '../widgets/custom_bottom_nav_bar.dart';
+import '../widgets/custom_items_page_view_on_boarding.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({
-    super.key,
+    super.key, 
   });
-
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
@@ -34,51 +36,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     PageController pageController = PageController();
     return Scaffold(
-        bottomNavigationBar: CustomBottomNavBar(
-          onTapNext: () {
-            _onBoardingController.onTapNext();
-          },
-          outputDataDotIndicator: _onBoardingController.outputData,
-          onTapDotIndicator: (index) {
-            _onBoardingController.onTapDotIndicator(index);
-          },
-          dotCount: 3,
+      bottomNavigationBar: CustomBottomNavBar(
+        onTapNext: () {
+          _onBoardingController.onTapNext();
+        },
+        outputDataDotIndicator: _onBoardingController.outputData,
+        onTapDotIndicator: (index) {
+          _onBoardingController.onTapDotIndicator(index);
+        },
+        dotCount: 3,
+      ),
+      body: PageView.builder(
+        itemCount: ConstValues.onBoardingListConst.length,
+        controller: pageController,
+        itemBuilder: (context, index) => CustomItemsPageViewOnBoarding(
+          onBoardingScreenModel: ConstValues.onBoardingListConst[index] ,
         ),
-        body: PageView.builder(
-          controller: pageController,
-          itemBuilder: (context, index) => Container(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 46.0),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/images/onboardingImage(3).svg",
-                          height: 400,
-                        ),
-                        SizedBox(
-                          height: 108,
-                        ),
-                        Text(
-                          "Synonyms for quiz",
-                          style: TextStyle(
-                              fontSize: 32, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 24,
-                        ),
-                        Text(
-                          "Synonyms for quiz",
-                          style: TextStyle(fontSize: 21),
-                        ),
-                      ]),
-                ),
-              ),
-            ),
-          ),
-          itemCount: 3,
-        ));
+      ),
+    );
   }
 }
