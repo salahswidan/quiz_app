@@ -10,7 +10,7 @@ import '../widgets/custom_items_page_view_on_boarding.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({
-    super.key, 
+    super.key,
   });
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
@@ -34,7 +34,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    PageController pageController = PageController();
+    // PageController pageController = PageController();
     return Scaffold(
       bottomNavigationBar: CustomBottomNavBar(
         onTapNext: () {
@@ -48,9 +48,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       ),
       body: PageView.builder(
         itemCount: ConstValues.onBoardingListConst.length,
-        controller: pageController,
+        controller: _onBoardingController.onBoardingPageViewController,
         itemBuilder: (context, index) => CustomItemsPageViewOnBoarding(
-          onBoardingScreenModel: ConstValues.onBoardingListConst[index] ,
+          onBoardingScreenModel: ConstValues.onBoardingListConst[index],
         ),
       ),
     );
