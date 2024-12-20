@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app_new/controller/login/login_screen_controller.dart';
 import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 import '../widgets/custom_logo_login_screen.dart';
 import '../../../core/widgets/custom_material_button.dart';
 import '../widgets/custom_text_enter_your_name.dart';
-import '../widgets/custom_text_field_name_login_screen.dart';
+import '../widgets/custom_text_form_field_name_login_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  late LoginScreenController _loginScreenController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loginScreenController = LoginScreenController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +36,34 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomLogoLoginScreen(),
-              CustomTest(),
+              Column(
+                children: [
+                  CustomTextEnterYourName(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextFormFieldNameLoginScreen(
+                    validator: (value) {
+                      return _loginScreenController.validateName(value);
+                    },
+                    keyForm: _loginScreenController.formKeyName,
+                    onChanged: (value) {
+                      if (_loginScreenController.formKeyName.currentState!
+                          .validate()) {
+                        print("go to");
+                      }
+                    },
+                  ),
+                ],
+              ),
               CustomMaterialBotton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_loginScreenController.name.isEmpty) {
+                    print("empty");
+                  } else {
+                    print("not empty");
+                  }
+                },
               )
             ],
           ),
@@ -35,25 +75,6 @@ class LoginScreen extends StatelessWidget {
                 ),
                 fit: BoxFit.cover)),
       ),
-    );
-  }
-}
-
-class CustomTest extends StatelessWidget {
-  const CustomTest({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomTextEnterYourName(),
-        SizedBox(
-          height: 10,
-        ),
-        CustomTextFieldNameLoginScreen(
-          onChanged: (value) {},
-        ),
-      ],
     );
   }
 }
