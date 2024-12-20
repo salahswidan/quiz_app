@@ -24,6 +24,11 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     _loginScreenController = LoginScreenController();
   }
+  @override
+  void dispose() {
+    _loginScreenController.OnDispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,19 +53,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     keyForm: _loginScreenController.formKeyName,
                     onChanged: (value) {
-                      if (_loginScreenController.formKeyName.currentState!
-                          .validate()) {
-                        _loginScreenController.bottonIsActive = true;
-                      } else {
-                        _loginScreenController.bottonIsActive = false;
-                      }
-                      setState(() {});
+                      _loginScreenController.onChangeTextFormField();
                     },
                   ),
                 ],
               ),
               CustomMaterialBotton(
-                isActive: _loginScreenController.bottonIsActive,
+                isActiveOutputStream:
+                    _loginScreenController.isActiveOutputStream,
                 onPressed: () {
                   print("object");
                 },
