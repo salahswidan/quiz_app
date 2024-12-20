@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class LoginScreenController {
   String name = "";
   late GlobalKey<FormState> formKeyName ;
+  bool bottonIsActive = false;
   LoginScreenController(){
     formKeyName = GlobalKey ();
   }

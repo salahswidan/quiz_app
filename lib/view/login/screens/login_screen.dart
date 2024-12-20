@@ -50,19 +50,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     onChanged: (value) {
                       if (_loginScreenController.formKeyName.currentState!
                           .validate()) {
-                        print("go to");
+                        _loginScreenController.bottonIsActive = true;
+                      } else {
+                        _loginScreenController.bottonIsActive = false;
                       }
+                      setState(() {});
                     },
                   ),
                 ],
               ),
               CustomMaterialBotton(
+                isActive: _loginScreenController.bottonIsActive,
                 onPressed: () {
-                  if (_loginScreenController.name.isEmpty) {
-                    print("empty");
-                  } else {
-                    print("not empty");
-                  }
+                  print("object");
                 },
               )
             ],
