@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 import '../widgets/custom_logo_login_screen.dart';
+import '../../../core/widgets/custom_material_button.dart';
 import '../widgets/custom_text_enter_your_name.dart';
 import '../widgets/custom_text_field_name_login_screen.dart';
 
@@ -17,17 +18,13 @@ class LoginScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomLogoLoginScreen(),
-              CustomTextEnterYourName(),
-              SizedBox(
-                height: 10,
-              ),
-              CustomTextFieldNameLoginScreen(
-                onChanged: (value) {
-                  
-                },
-              ),
+              CustomTest(),
+              CustomMaterialBotton(
+                onPressed: () {},
+              )
             ],
           ),
         ),
@@ -38,6 +35,25 @@ class LoginScreen extends StatelessWidget {
                 ),
                 fit: BoxFit.cover)),
       ),
+    );
+  }
+}
+
+class CustomTest extends StatelessWidget {
+  const CustomTest({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CustomTextEnterYourName(),
+        SizedBox(
+          height: 10,
+        ),
+        CustomTextFieldNameLoginScreen(
+          onChanged: (value) {},
+        ),
+      ],
     );
   }
 }
