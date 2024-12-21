@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     _loginScreenController = LoginScreenController();
   }
+
   @override
   void dispose() {
     _loginScreenController.OnDispose();
@@ -62,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 isActiveOutputStream:
                     _loginScreenController.isActiveOutputStream,
                 onPressed: () {
-                  print("object");
+                  _loginScreenController.navigateToQuizApp(context);
                 },
               )
             ],

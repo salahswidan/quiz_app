@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:quiz_app_new/core/resources/route_manager.dart';
 
 class LoginScreenController {
   String name = "";
@@ -38,5 +39,8 @@ class LoginScreenController {
   OnDispose(){
     inputDataBottonState.close();
     streamControllerBottonState.close();
+  }
+  void navigateToQuizApp(BuildContext context){
+    Navigator.pushNamedAndRemoveUntil(context, RoutesName.KQuizScreen, (route) => false);
   }
 }
