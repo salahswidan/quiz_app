@@ -52,10 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: (value) {
                       return _loginScreenController.validateName(value);
                     },
-                    keyForm: _loginScreenController.formKeyName,
                     onChanged: (value) {
                       _loginScreenController.onChangeTextFormField();
                     },
+                    keyForm: _loginScreenController.formKeyName,
+                    controllerName:
+                        _loginScreenController.controllerNameTextFiled,
                   ),
                 ],
               ),

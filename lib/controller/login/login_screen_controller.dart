@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app_new/core/resources/route_manager.dart';
 
 class LoginScreenController {
-  String name = "";
   late GlobalKey<FormState> formKeyName ;
   bool bottonIsActive = false;
   late StreamController<bool> streamControllerBottonState ;
   late Sink<bool> inputDataBottonState ;
   late Stream<bool> isActiveOutputStream ;
+  late TextEditingController controllerNameTextFiled ;
   LoginScreenController(){
     formKeyName = GlobalKey ();
     streamControllerBottonState = StreamController();
     inputDataBottonState = streamControllerBottonState.sink;
     isActiveOutputStream = streamControllerBottonState.stream;
+    controllerNameTextFiled = TextEditingController();
                           inputDataBottonState.add(bottonIsActive);
 
   }
@@ -41,6 +42,8 @@ class LoginScreenController {
     streamControllerBottonState.close();
   }
   void navigateToQuizApp(BuildContext context){
-    Navigator.pushNamedAndRemoveUntil(context, RoutesName.KQuizScreen, (route) => false);
+    Navigator.pushNamedAndRemoveUntil(
+      arguments: controllerNameTextFiled.text,
+      context, RoutesName.KQuizScreen, (route) => false);
   }
 }
