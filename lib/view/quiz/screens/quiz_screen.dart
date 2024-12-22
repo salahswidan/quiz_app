@@ -4,6 +4,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 import '../widget/custom_app_bar_quiz_screen.dart';
+import '../widget/custom_circular_percent_indicator_quiz_screen.dart';
+import '../widget/custom_question_title_quiz_screen.dart';
 
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
@@ -19,24 +21,20 @@ class QuizScreen extends StatelessWidget {
           width: double.infinity,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            SizedBox(
+              height: 88,
+            ),
             Stack(
+              clipBehavior: Clip.none,
               children: [
-                CircularPercentIndicator(
-                  animationDuration: 30000,
-                  backgroundColor: ColorManager.kPrimaryColor.withOpacity(.38),
-                  animation: true,
-                  radius: 43.0,
-                  lineWidth: 5.0,
-                  percent: 0.5,
-                  center: Text(
-                    "30",
-                    style: GoogleFonts.baloo2(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 32,
-                    ),
-                  ),
-                  progressColor: ColorManager.kPrimaryColor,
+                CustomQuestionTitleQuizScreen(
+                  text:  "In what year did the United States host the Fifa World Cup for the first time?",
                 ),
+                Positioned(
+                    right: 0,
+                    left: 0,
+                    top: -29,
+                    child: CustomCircularPercentIndicator(text: "30")),
               ],
             ),
           ]),
