@@ -7,9 +7,10 @@ import '../resources/color_manager.dart';
 
 class CustomMaterialBotton extends StatelessWidget {
   const CustomMaterialBotton(
-      {super.key, required this.onPressed, required this.isActiveOutputStream, });
+      {super.key, required this.onPressed, required this.isActiveOutputStream, required this.text, });
   final VoidCallback onPressed;
   final Stream<bool> isActiveOutputStream;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CustomMaterialBotton extends StatelessWidget {
               borderRadius: BorderRadius.circular(20)),
           child: Center(
             child: Text(
-              "Start",
+              text,
               style: GoogleFonts.baloo2(color: Colors.white, fontSize: 24),
             ),
           ),

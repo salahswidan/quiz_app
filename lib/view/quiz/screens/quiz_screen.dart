@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:quiz_app_new/controller/quiz/quiz_screen_controller.dart';
 import 'package:quiz_app_new/core/resources/color_manager.dart';
+import 'package:quiz_app_new/core/widgets/custom_material_button.dart';
 
 import '../widget/custom_app_bar_quiz_screen.dart';
 import '../widget/custom_circular_percent_indicator_quiz_screen.dart';
@@ -25,6 +26,12 @@ class _QuizScreenState extends State<QuizScreen> {
     // TODO: implement initState
     super.initState();
     _quizScreenController = QuizScreenController();
+  }
+
+  @override
+  void dispose() {
+    _quizScreenController.onDispose();
+    super.dispose();
   }
 
   @override
@@ -60,7 +67,16 @@ class _QuizScreenState extends State<QuizScreen> {
                   SizedBox(
                     height: 70,
                   ),
-                  CustomListViewOptionQuizScreen(quizScreenController: _quizScreenController,itemCount: _quizScreenController.options.length,),
+                  CustomListViewOptionQuizScreen(
+                    onTap: (indexValue) {
+                      _quizScreenController.onTapAtItemRadio(indexValue);
+                    },
+                    outputDataGropeValueRadio:
+                        _quizScreenController.outputDataGropeValueRadio,
+                    quizScreenController: _quizScreenController,
+                    itemCount: _quizScreenController.options.length,
+                    option: _quizScreenController.options,
+                  ),
                 ]),
           ),
         ),
@@ -71,6 +87,14 @@ class _QuizScreenState extends State<QuizScreen> {
           Navigator.of(context).canPop();
         },
         text: "7/10",
+      ),
+      bottomNavigationBar: Padding(
+        padding:
+            const EdgeInsets.only(right: 24.0, left: 24, bottom: 24,  ),
+        child: CustomMaterialBotton(
+            text: "Next",
+            onPressed: () {},
+            isActiveOutputStream: _quizScreenController.isActiveOutputStream),
       ),
     );
   }

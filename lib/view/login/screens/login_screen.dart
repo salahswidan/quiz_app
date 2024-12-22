@@ -62,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               CustomMaterialBotton(
+                text: "Start",
                 isActiveOutputStream:
                     _loginScreenController.isActiveOutputStream,
                 onPressed: () {
