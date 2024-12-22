@@ -5,6 +5,7 @@ import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 import '../widget/custom_app_bar_quiz_screen.dart';
 import '../widget/custom_circular_percent_indicator_quiz_screen.dart';
+import '../widget/custom_item_redio_quiz_screen.dart';
 import '../widget/custom_question_title_quiz_screen.dart';
 
 class QuizScreen extends StatelessWidget {
@@ -28,7 +29,8 @@ class QuizScreen extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 CustomQuestionTitleQuizScreen(
-                  text:  "In what year did the United States host the Fifa World Cup for the first time?",
+                  text:
+                      "In what year did the United States host the Fifa World Cup for the first time?",
                 ),
                 Positioned(
                     right: 0,
@@ -37,6 +39,14 @@ class QuizScreen extends StatelessWidget {
                     child: CustomCircularPercentIndicator(text: "30")),
               ],
             ),
+            SizedBox(
+              height: 70,
+            ),
+            CustomItemRedioQuizScreen(),
+            CustomItemRedioQuizScreen(),
+            CustomItemRedioQuizScreen(),
+            CustomItemRedioQuizScreen(),
+            CustomItemRedioQuizScreen(),
           ]),
         ),
       ),
