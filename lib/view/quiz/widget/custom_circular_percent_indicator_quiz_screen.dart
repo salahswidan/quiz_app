@@ -7,10 +7,8 @@ import '../../../core/resources/color_manager.dart';
 class CustomCircularPercentIndicator extends StatelessWidget {
   const CustomCircularPercentIndicator({
     super.key,
-    required this.text,
     required this.outPutStreamTime,
   });
-  final String text;
   final Stream<int> outPutStreamTime;
 
   @override

@@ -65,7 +65,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           top: -29,
                           child: CustomCircularPercentIndicator(
                               outPutStreamTime: _quizScreenController.outPutStreamTime,
-                            text: "30")),
+                          )),
                     ],
                   ),
                   SizedBox(
