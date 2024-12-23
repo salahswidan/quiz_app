@@ -16,6 +16,10 @@ class QuizScreenController {
   late Stream<bool> isActiveOutputStream;
   bool isNextActive = false;
 
+   late StreamController<int> streamControllerTime;
+  late Sink<int> inputDataTime;
+  late Stream<int> outPutStreamTime;
+
   QuizScreenController() {
     countQuestion = ConstValues.questionList.length;
     streamControllerGropeValueRadio = StreamController();
@@ -28,6 +32,11 @@ class QuizScreenController {
     isActiveOutputStream =
         streamControllerBottonState.stream.asBroadcastStream();
     inputDataBottonState.add(isNextActive);
+
+    streamControllerTime = StreamController();
+    inputDataTime = streamControllerTime.sink;
+    outPutStreamTime =
+        streamControllerTime.stream.asBroadcastStream();
   }
   void onTapAtItemRadio(int index) {
     gropeValueIndex = index;
@@ -43,5 +52,9 @@ class QuizScreenController {
   onDispose() {
     streamControllerGropeValueRadio.close();
     inputDataGropeValueRadio.close();
+    streamControllerBottonState.close();
+    inputDataBottonState.close();
+    streamControllerTime.close();
+    inputDataTime.close();
   }
 }
