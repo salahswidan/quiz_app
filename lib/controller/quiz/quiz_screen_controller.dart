@@ -4,7 +4,7 @@ import 'package:quiz_app_new/core/const_values.dart';
 
 class QuizScreenController {
   int countQuestion = 0;
-  int questionNow = 2;
+  int questionNow = 0;
   int gropeValueIndex = -1;
   late StreamController<int> streamControllerGropeValueRadio;
   late Sink<int> inputDataGropeValueRadio;
@@ -40,11 +40,24 @@ class QuizScreenController {
     makeCounter();
   }
   void makeCounter() {
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 31; i++) {
       Future.delayed(Duration(seconds: i), () {
-       timeSecondCounterNow = i;
+        timeSecondCounterNow = i;
         inputDataTime.add(timeSecondCounterNow);
+        if (i == 30) {
+          nextQuestion();
+        }
       });
+    }
+  }
+
+  void nextQuestion() {
+    if (questionNow >= ConstValues.questionList.length - 1) {
+      print("con't next question");
+    } else {
+      questionNow++;
+      print("increament question");
+      makeCounter();
     }
   }
 
