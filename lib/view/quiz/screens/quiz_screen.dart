@@ -55,9 +55,8 @@ class _QuizScreenState extends State<QuizScreen> {
                     clipBehavior: Clip.none,
                     children: [
                       CustomQuestionTitleQuizScreen(
-                        text: ConstValues
-                            .questionList[_quizScreenController.questionNow]
-                            .question,
+                        outPutStreamQuestionTitle: _quizScreenController.outPutStreamQuestionTitle,
+                       
                       ),
                       Positioned(
                           right: 0,

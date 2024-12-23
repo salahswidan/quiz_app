@@ -18,6 +18,10 @@ class QuizScreenController {
   late StreamController<int> streamControllerTime;
   late Sink<int> inputDataTime;
   late Stream<int> outPutStreamTime;
+
+  late StreamController<int> streamControllerQuestionTitle;
+  late Sink<int> inputDataQuestionTitle;
+  late Stream<int> outPutStreamQuestionTitle;
   int timeSecondCounterNow = 0;
 
   QuizScreenController() {
@@ -38,6 +42,11 @@ class QuizScreenController {
     outPutStreamTime = streamControllerTime.stream.asBroadcastStream();
     inputDataTime.add(timeSecondCounterNow);
     makeCounter();
+
+    streamControllerQuestionTitle = StreamController();
+    inputDataQuestionTitle = streamControllerQuestionTitle.sink;
+    outPutStreamQuestionTitle = streamControllerQuestionTitle.stream.asBroadcastStream();
+    inputDataQuestionTitle.add(questionNow);
   }
   void makeCounter() {
     for (int i = 0; i < 31; i++) {
@@ -59,6 +68,8 @@ class QuizScreenController {
       print("increament question");
       makeCounter();
     }
+        inputDataQuestionTitle.add(questionNow);
+
   }
 
   void onTapAtItemRadio(int index) {
