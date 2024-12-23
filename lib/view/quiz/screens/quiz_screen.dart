@@ -55,35 +55,44 @@ class _QuizScreenState extends State<QuizScreen> {
                     clipBehavior: Clip.none,
                     children: [
                       CustomQuestionTitleQuizScreen(
-                        outPutStreamQuestionTitle: _quizScreenController.outPutStreamQuestionTitle,
-                       
+                        outPutStreamQuestionTitle:
+                            _quizScreenController.outPutStreamQuestion,
                       ),
                       Positioned(
                           right: 0,
                           left: 0,
                           top: -29,
                           child: CustomCircularPercentIndicator(
-                              outPutStreamTime: _quizScreenController.outPutStreamTime,
+                            outPutStreamTime:
+                                _quizScreenController.outPutStreamTime,
                           )),
                     ],
                   ),
                   SizedBox(
                     height: 70,
                   ),
-                  CustomListViewOptionQuizScreen(
-                    onTap: (indexValue) {
-                      _quizScreenController.onTapAtItemRadio(indexValue);
-                    },
-                    outputDataGropeValueRadio:
-                        _quizScreenController.outputDataGropeValueRadio,
-                    quizScreenController: _quizScreenController,
-                    itemCount: ConstValues
-                        .questionList[_quizScreenController.questionNow]
-                        .listAnswer
-                        .length,
-                    option: ConstValues
-                        .questionList[_quizScreenController.questionNow]
-                        .listAnswer,
+                  StreamBuilder(
+                    stream: _quizScreenController.outPutStreamQuestion,
+                    builder: (context, snapshot) =>
+                        CustomListViewOptionQuizScreen(
+                      onTap: (indexValue) {
+                        _quizScreenController.onTapAtItemRadio(indexValue);
+                      },
+                      outputDataGropeValueRadio:
+                          _quizScreenController.outputDataGropeValueRadio,
+                      quizScreenController: _quizScreenController,
+                      itemCount: ConstValues
+                          .questionList[snapshot.data == null
+                              ? 0
+                              : snapshot.data!]
+                          .listAnswer
+                          .length,
+                      option: ConstValues
+                          .questionList[snapshot.data == null
+                              ? 0
+                              : snapshot.data!]
+                          .listAnswer,
+                    ),
                   ),
                 ]),
           ),
