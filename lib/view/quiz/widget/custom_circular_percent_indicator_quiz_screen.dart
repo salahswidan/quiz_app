@@ -24,7 +24,7 @@ class CustomCircularPercentIndicator extends StatelessWidget {
         radius: 43.0,
         circularStrokeCap: CircularStrokeCap.round,
         lineWidth: 5.0,
-        percent: 0.5,
+        percent: 1.0,
         center: Text(
           text,
           style: GoogleFonts.baloo2(

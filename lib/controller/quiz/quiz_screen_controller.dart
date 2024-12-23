@@ -1,25 +1,32 @@
 import 'dart:async';
 
+import 'package:quiz_app_new/core/const_values.dart';
+
 class QuizScreenController {
-  List<String> options = ["a", "b", "c", "d"];
+
+  int countQuestion = 0;
+  int questionNow = 2;
   int gropeValueIndex = -1;
   late StreamController<int> streamControllerGropeValueRadio;
   late Sink<int> inputDataGropeValueRadio;
-  late Stream<int>  outputDataGropeValueRadio;
+  late Stream<int> outputDataGropeValueRadio;
 
-    late StreamController<bool> streamControllerBottonState ;
-  late Sink<bool> inputDataBottonState ;
-  late Stream<bool> isActiveOutputStream ;
+  late StreamController<bool> streamControllerBottonState;
+  late Sink<bool> inputDataBottonState;
+  late Stream<bool> isActiveOutputStream;
   bool isNextActive = false;
 
   QuizScreenController() {
+    countQuestion = ConstValues.questionList.length;
     streamControllerGropeValueRadio = StreamController();
     inputDataGropeValueRadio = streamControllerGropeValueRadio.sink;
-    outputDataGropeValueRadio = streamControllerGropeValueRadio.stream.asBroadcastStream();
+    outputDataGropeValueRadio =
+        streamControllerGropeValueRadio.stream.asBroadcastStream();
     inputDataGropeValueRadio.add(gropeValueIndex);
-     streamControllerBottonState = StreamController();
+    streamControllerBottonState = StreamController();
     inputDataBottonState = streamControllerBottonState.sink;
-    isActiveOutputStream = streamControllerBottonState.stream.asBroadcastStream();
+    isActiveOutputStream =
+        streamControllerBottonState.stream.asBroadcastStream();
     inputDataBottonState.add(isNextActive);
   }
   void onTapAtItemRadio(int index) {
@@ -30,10 +37,10 @@ class QuizScreenController {
     } else {
       isNextActive = false;
     }
-        inputDataBottonState.add(isNextActive);
-
+    inputDataBottonState.add(isNextActive);
   }
-   onDispose() {
+
+  onDispose() {
     streamControllerGropeValueRadio.close();
     inputDataGropeValueRadio.close();
   }

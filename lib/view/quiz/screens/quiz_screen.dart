@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:quiz_app_new/controller/quiz/quiz_screen_controller.dart';
+import 'package:quiz_app_new/core/const_values.dart';
 import 'package:quiz_app_new/core/resources/color_manager.dart';
 import 'package:quiz_app_new/core/widgets/custom_material_button.dart';
 
@@ -54,8 +55,9 @@ class _QuizScreenState extends State<QuizScreen> {
                     clipBehavior: Clip.none,
                     children: [
                       CustomQuestionTitleQuizScreen(
-                        text:
-                            "In what year did the United States host the Fifa World Cup for the first time?",
+                        text: ConstValues
+                            .questionList[_quizScreenController.questionNow]
+                            .question,
                       ),
                       Positioned(
                           right: 0,
@@ -74,8 +76,13 @@ class _QuizScreenState extends State<QuizScreen> {
                     outputDataGropeValueRadio:
                         _quizScreenController.outputDataGropeValueRadio,
                     quizScreenController: _quizScreenController,
-                    itemCount: _quizScreenController.options.length,
-                    option: _quizScreenController.options,
+                    itemCount: ConstValues
+                        .questionList[_quizScreenController.questionNow]
+                        .listAnswer
+                        .length,
+                    option: ConstValues
+                        .questionList[_quizScreenController.questionNow]
+                        .listAnswer,
                   ),
                 ]),
           ),
@@ -86,11 +93,15 @@ class _QuizScreenState extends State<QuizScreen> {
         onTap: () {
           Navigator.of(context).canPop();
         },
-        text: "7/10",
+        text:
+            "${_quizScreenController.questionNow + 1}/${_quizScreenController.countQuestion}",
       ),
       bottomNavigationBar: Padding(
-        padding:
-            const EdgeInsets.only(right: 24.0, left: 24, bottom: 24,  ),
+        padding: const EdgeInsets.only(
+          right: 24.0,
+          left: 24,
+          bottom: 24,
+        ),
         child: CustomMaterialBotton(
             text: "Next",
             onPressed: () {},
