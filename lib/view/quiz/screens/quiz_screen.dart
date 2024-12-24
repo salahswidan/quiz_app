@@ -71,28 +71,24 @@ class _QuizScreenState extends State<QuizScreen> {
                   SizedBox(
                     height: 70,
                   ),
-                  StreamBuilder(
-                    stream: _quizScreenController.outPutStreamQuestion,
-                    builder: (context, snapshot) =>
-                        CustomListViewOptionQuizScreen(
-                      onTap: (indexValue) {
-                        _quizScreenController.onTapAtItemRadio(indexValue);
-                      },
-                      outputDataGropeValueRadio:
-                          _quizScreenController.outputDataGropeValueRadio,
-                      quizScreenController: _quizScreenController,
-                      itemCount: ConstValues
-                          .questionList[snapshot.data == null
-                              ? 0
-                              : snapshot.data!]
-                          .listAnswer
-                          .length,
-                      option: ConstValues
-                          .questionList[snapshot.data == null
-                              ? 0
-                              : snapshot.data!]
-                          .listAnswer,
-                    ),
+                  CustomListViewOptionQuizScreen(
+                    outPutStreamQuestion:
+                        _quizScreenController.outPutStreamQuestion,
+                    onTap: (indexValue) {
+                      _quizScreenController.onTapAtItemRadio(indexValue);
+                    },
+                    outputDataGropeValueRadio:
+                        _quizScreenController.outputDataGropeValueRadio,
+                    quizScreenController: _quizScreenController,
+                    // itemCount: ConstValues
+                    //     .questionList[
+                    //         snapshot.data == null ? 0 : snapshot.data!]
+                    //     .listAnswer
+                    //     .length,
+                    // option: ConstValues
+                    //     .questionList[
+                    //         snapshot.data == null ? 0 : snapshot.data!]
+                    //     .listAnswer,
                   ),
                 ]),
           ),

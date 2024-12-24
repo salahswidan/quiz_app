@@ -90,5 +90,7 @@ class QuizScreenController {
     inputDataBottonState.close();
     streamControllerTime.close();
     inputDataTime.close();
+    streamControllerQuestion.close();
+    inputDataQuestion.close();
   }
 }
