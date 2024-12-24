@@ -24,6 +24,11 @@ class QuizScreenController {
   late Stream<int> outPutStreamQuestion;
   int timeSecondCounterNow = 0;
 
+  late StreamController<bool> streamControllerAniamtionStatus;
+  late Sink<bool> inputAniamtionStatus;
+  late Stream<bool> outPutAniamtionStatus;
+  bool animationStatus = true;
+
   QuizScreenController() {
     countQuestion = ConstValues.questionList.length;
     streamControllerGropeValueRadio = StreamController();
@@ -48,6 +53,12 @@ class QuizScreenController {
     outPutStreamQuestion =
         streamControllerQuestion.stream.asBroadcastStream();
     inputDataQuestion.add(questionNow);
+
+     streamControllerAniamtionStatus = StreamController();
+    inputAniamtionStatus = streamControllerAniamtionStatus.sink;
+    outPutAniamtionStatus =
+        streamControllerAniamtionStatus.stream.asBroadcastStream();
+    inputAniamtionStatus.add(animationStatus);
   }
   void makeCounter() {
     for (int i = 0; i < 31; i++) {
@@ -63,6 +74,8 @@ class QuizScreenController {
 
   void nextQuestion() {
     if (questionNow >= ConstValues.questionList.length - 1) {
+          inputAniamtionStatus.add(animationStatus);
+
       print("con't next question");
     } else {
       questionNow++;
@@ -74,6 +87,7 @@ class QuizScreenController {
 
   void onTapAtItemRadio(int index) {
     gropeValueIndex = index;
+    animationStatus = false;
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (gropeValueIndex != -1) {
       isNextActive = true;
@@ -92,5 +106,7 @@ class QuizScreenController {
     inputDataTime.close();
     streamControllerQuestion.close();
     inputDataQuestion.close();
+    streamControllerAniamtionStatus.close();
+    inputAniamtionStatus.close();
   }
 }

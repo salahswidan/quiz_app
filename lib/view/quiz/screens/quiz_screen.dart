@@ -63,6 +63,8 @@ class _QuizScreenState extends State<QuizScreen> {
                           left: 0,
                           top: -29,
                           child: CustomCircularPercentIndicator(
+                            outPutAniamtionStatus:
+                                _quizScreenController.outPutAniamtionStatus,
                             outPutStreamTime:
                                 _quizScreenController.outPutStreamTime,
                           )),
@@ -80,15 +82,7 @@ class _QuizScreenState extends State<QuizScreen> {
                     outputDataGropeValueRadio:
                         _quizScreenController.outputDataGropeValueRadio,
                     quizScreenController: _quizScreenController,
-                    // itemCount: ConstValues
-                    //     .questionList[
-                    //         snapshot.data == null ? 0 : snapshot.data!]
-                    //     .listAnswer
-                    //     .length,
-                    // option: ConstValues
-                    //     .questionList[
-                    //         snapshot.data == null ? 0 : snapshot.data!]
-                    //     .listAnswer,
+                 
                   ),
                 ]),
           ),
