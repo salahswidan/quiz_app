@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:quiz_app_new/core/const_values.dart';
+import 'package:quiz_app_new/core/resources/route_manager.dart';
 
 class QuizScreenController {
   int countQuestion = 0;
@@ -28,16 +29,17 @@ class QuizScreenController {
   late StreamController<double> streamControllerAniamtionProgress;
   late Sink<double> inputAniamtionProgress;
   late Stream<double> outPutAniamtionProgress;
-  bool animationStatus = true;
   List<int> listCorrectAnswers = [];
   late AnimationController animationController;
   double animationProgressPercent = 0.0;
   Tween tween = Tween<double>(begin: 0, end: 1);
+  late BuildContext _context;
 
-  QuizScreenController(SingleTickerProviderStateMixin vsync) {
+  QuizScreenController(SingleTickerProviderStateMixin vsync, BuildContext context) {
+    _context = context;
     animationController = AnimationController(
       vsync: vsync,
-      duration: Duration(seconds: 30),
+      duration: Duration(seconds: 1),
     );
 
     countQuestion = ConstValues.questionList.length;
@@ -74,7 +76,7 @@ class QuizScreenController {
     animationController.forward();
     animationController.addListener(() {
       animationProgressPercent = tween.evaluate(animationController) as double;
-      inputDataTime.add((animationProgressPercent * 31).toInt());
+      inputDataTime.add((animationProgressPercent * 30).toInt());
       inputAniamtionProgress.add(animationProgressPercent);
     });
   }
@@ -91,6 +93,10 @@ class QuizScreenController {
     forwardAnimation();
     inputDataTime.add((animationProgressPercent * 30).toInt());
   }
+  void goToAnswerScreen() {
+      Navigator.pushNamedAndRemoveUntil(_context, RoutesName.KAnswersScreen, (predicate) => false);
+  }
+
 
   void nextQuestion() {
     if (questionNow == listCorrectAnswers.length) {
@@ -101,12 +107,10 @@ class QuizScreenController {
     gropeValueIndex = -1;
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (questionNow >= ConstValues.questionList.length - 1) {
-      inputAniamtionProgress.add(animationProgressPercent);
-
-      print("con't next question");
+      goToAnswerScreen();
+      //inputAniamtionProgress.add(animationProgressPercent);
     } else {
       questionNow++;
-      print("increament question");
       makeCounter();
     }
     inputDataQuestion.add(questionNow);
@@ -119,9 +123,7 @@ class QuizScreenController {
     } else {
       listCorrectAnswers[questionNow] = gropeValueIndex;
     }
-    for (int i in listCorrectAnswers) {
-      //   print(i);
-    }
+  
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (gropeValueIndex != -1) {
       isNextActive = true;
