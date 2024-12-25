@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: "main"),
       debugShowCheckedModeBanner: false,
-     routes: RouteManager.routes,
-     initialRoute: RoutesName.KsplashScreen,
+      routes: RouteManager.routes,
+      initialRoute: RoutesName.KAnswersScreen,
     );
   }
 }
