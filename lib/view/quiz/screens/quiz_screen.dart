@@ -19,14 +19,16 @@ class QuizScreen extends StatefulWidget {
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _QuizScreenState extends State<QuizScreen>
+    with SingleTickerProviderStateMixin {
   late QuizScreenController _quizScreenController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _quizScreenController = QuizScreenController();
+    _quizScreenController = QuizScreenController(this);
+    _quizScreenController.forwardAnimation();
   }
 
   @override
@@ -63,8 +65,8 @@ class _QuizScreenState extends State<QuizScreen> {
                           left: 0,
                           top: -29,
                           child: CustomCircularPercentIndicator(
-                            outPutAniamtionStatus:
-                                _quizScreenController.outPutAniamtionStatus,
+                            outPutAniamtionProgress:
+                                _quizScreenController.outPutAniamtionProgress,
                             outPutStreamTime:
                                 _quizScreenController.outPutStreamTime,
                           )),
@@ -82,7 +84,6 @@ class _QuizScreenState extends State<QuizScreen> {
                     outputDataGropeValueRadio:
                         _quizScreenController.outputDataGropeValueRadio,
                     quizScreenController: _quizScreenController,
-                 
                   ),
                 ]),
           ),

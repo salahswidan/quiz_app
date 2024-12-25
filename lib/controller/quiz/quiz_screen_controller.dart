@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:quiz_app_new/core/const_values.dart';
 
 class QuizScreenController {
@@ -24,13 +25,21 @@ class QuizScreenController {
   late Stream<int> outPutStreamQuestion;
   int timeSecondCounterNow = 0;
 
-  late StreamController<bool> streamControllerAniamtionStatus;
-  late Sink<bool> inputAniamtionStatus;
-  late Stream<bool> outPutAniamtionStatus;
+  late StreamController<double> streamControllerAniamtionProgress;
+  late Sink<double> inputAniamtionProgress;
+  late Stream<double> outPutAniamtionProgress;
   bool animationStatus = true;
   List<int> listCorrectAnswers = [];
+  late AnimationController animationController;
+  double animationProgressPercent = 0.0;
+  Tween tween = Tween<double>(begin: 0, end: 1);
 
-  QuizScreenController() {
+  QuizScreenController(SingleTickerProviderStateMixin vsync) {
+    animationController = AnimationController(
+      vsync: vsync,
+      duration: Duration(seconds: 30),
+    );
+
     countQuestion = ConstValues.questionList.length;
     streamControllerGropeValueRadio = StreamController();
     inputDataGropeValueRadio = streamControllerGropeValueRadio.sink;
@@ -54,34 +63,37 @@ class QuizScreenController {
     outPutStreamQuestion = streamControllerQuestion.stream.asBroadcastStream();
     inputDataQuestion.add(questionNow);
 
-    streamControllerAniamtionStatus = StreamController();
-    inputAniamtionStatus = streamControllerAniamtionStatus.sink;
-    outPutAniamtionStatus =
-        streamControllerAniamtionStatus.stream.asBroadcastStream();
-    inputAniamtionStatus.add(animationStatus);
+    streamControllerAniamtionProgress = StreamController();
+    inputAniamtionProgress = streamControllerAniamtionProgress.sink;
+    outPutAniamtionProgress =
+        streamControllerAniamtionProgress.stream.asBroadcastStream();
+    inputAniamtionProgress.add(animationProgressPercent);
   }
+  void forwardAnimation() {
+    animationController.forward();
+    animationController.addListener(() {
+      animationProgressPercent = tween.evaluate(animationController) as double;
+      inputDataTime.add((animationProgressPercent * 30).toInt());
+                inputAniamtionProgress.add(animationProgressPercent);
+
+    });
+  }
+
   void makeCounter() {
-    for (int i = 0; i < 31; i++) {
-      Future.delayed(Duration(seconds: i), () {
-        timeSecondCounterNow = i;
-        inputDataTime.add(timeSecondCounterNow);
-        if (i == 30) {
-          nextQuestion();
-        }
-      });
-    }
+    inputDataTime.add((animationProgressPercent * 30).toInt());
+
   }
 
   void nextQuestion() {
-     if (questionNow == listCorrectAnswers.length) {
+    if (questionNow == listCorrectAnswers.length) {
       listCorrectAnswers.add(gropeValueIndex);
-    }else{
+    } else {
       listCorrectAnswers[questionNow] = gropeValueIndex;
     }
     gropeValueIndex = -1;
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (questionNow >= ConstValues.questionList.length - 1) {
-      inputAniamtionStatus.add(animationStatus);
+      inputAniamtionProgress.add(animationProgressPercent);
 
       print("con't next question");
     } else {
@@ -96,11 +108,11 @@ class QuizScreenController {
     gropeValueIndex = index;
     if (questionNow == listCorrectAnswers.length) {
       listCorrectAnswers.add(gropeValueIndex);
-    }else{
+    } else {
       listCorrectAnswers[questionNow] = gropeValueIndex;
     }
     for (int i in listCorrectAnswers) {
-   //   print(i);
+      //   print(i);
     }
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (gropeValueIndex != -1) {
@@ -120,7 +132,7 @@ class QuizScreenController {
     inputDataTime.close();
     streamControllerQuestion.close();
     inputDataQuestion.close();
-    streamControllerAniamtionStatus.close();
-    inputAniamtionStatus.close();
+    streamControllerAniamtionProgress.close();
+    inputAniamtionProgress.close();
   }
 }
