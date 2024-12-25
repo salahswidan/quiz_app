@@ -43,6 +43,14 @@ class _QuizScreenState extends State<QuizScreen>
     // String a = ModalRoute.of(context)!.settings.arguments as String;
     // print(a);
     return Scaffold(
+        appBar: CustomAppBarQuizScreen(
+          textQuestionStream: _quizScreenController.outPutQuestionNow,
+          
+        onTap: () {
+          Navigator.of(context).canPop();
+        },
+        
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Container(
@@ -91,13 +99,7 @@ class _QuizScreenState extends State<QuizScreen>
         ),
       ),
       backgroundColor: ColorManager.kLightWightColor,
-      appBar: CustomAppBarQuizScreen(
-        onTap: () {
-          Navigator.of(context).canPop();
-        },
-        text:
-            "${_quizScreenController.questionNow + 1}/${_quizScreenController.countQuestion}",
-      ),
+    
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(
           right: 24.0,

@@ -6,10 +6,10 @@ class CustomAppBarQuizScreen extends StatelessWidget
     implements PreferredSizeWidget {
   const CustomAppBarQuizScreen({
     super.key,
-    required this.onTap, required this.text,
+    required this.onTap, required this.textQuestionStream,
   });
   final GestureTapCallback onTap;
-  final String text;
+  final Stream<String> textQuestionStream;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,12 @@ class CustomAppBarQuizScreen extends StatelessWidget
           )
         ]),
       ),
-      title: Text(
-        "$text",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      title: StreamBuilder<String>(
+
+        stream: textQuestionStream, builder: (context, snapshot) => Text(
+          snapshot.data == null ? "" : snapshot.data!,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
       ),
       backgroundColor: ColorManager.kLightWightColor,
     );

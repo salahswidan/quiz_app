@@ -34,12 +34,16 @@ class QuizScreenController {
   double animationProgressPercent = 0.0;
   Tween tween = Tween<double>(begin: 0, end: 1);
   late BuildContext _context;
+  late StreamController<String> streamControllerQuestionNow;
+  late Sink<String> inputQuestionNow;
+  late Stream<String> outPutQuestionNow;
 
-  QuizScreenController(SingleTickerProviderStateMixin vsync, BuildContext context) {
+  QuizScreenController(
+      SingleTickerProviderStateMixin vsync, BuildContext context) {
     _context = context;
     animationController = AnimationController(
       vsync: vsync,
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 30),
     );
 
     countQuestion = ConstValues.questionList.length;
@@ -70,6 +74,11 @@ class QuizScreenController {
     outPutAniamtionProgress =
         streamControllerAniamtionProgress.stream.asBroadcastStream();
     inputAniamtionProgress.add(animationProgressPercent);
+
+    streamControllerQuestionNow = StreamController();
+    inputQuestionNow = streamControllerQuestionNow.sink;
+    outPutQuestionNow = streamControllerQuestionNow.stream.asBroadcastStream();
+    inputQuestionNow.add("${questionNow + 1}/${countQuestion}");
   }
   void forwardAnimation() {
     animationController.reset();
@@ -93,10 +102,11 @@ class QuizScreenController {
     forwardAnimation();
     inputDataTime.add((animationProgressPercent * 30).toInt());
   }
-  void goToAnswerScreen() {
-      Navigator.pushNamedAndRemoveUntil(_context, RoutesName.KAnswersScreen, (predicate) => false);
-  }
 
+  void goToAnswerScreen() {
+    Navigator.pushNamedAndRemoveUntil(
+        _context, RoutesName.KAnswersScreen, (predicate) => false, arguments: listCorrectAnswers);
+  }
 
   void nextQuestion() {
     if (questionNow == listCorrectAnswers.length) {
@@ -107,6 +117,7 @@ class QuizScreenController {
     gropeValueIndex = -1;
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (questionNow >= ConstValues.questionList.length - 1) {
+      
       goToAnswerScreen();
       //inputAniamtionProgress.add(animationProgressPercent);
     } else {
@@ -114,6 +125,7 @@ class QuizScreenController {
       makeCounter();
     }
     inputDataQuestion.add(questionNow);
+    inputQuestionNow.add("${questionNow + 1}/${countQuestion}");
   }
 
   void onTapAtItemRadio(int index) {
@@ -123,7 +135,7 @@ class QuizScreenController {
     } else {
       listCorrectAnswers[questionNow] = gropeValueIndex;
     }
-  
+
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (gropeValueIndex != -1) {
       isNextActive = true;
@@ -144,5 +156,7 @@ class QuizScreenController {
     inputDataQuestion.close();
     streamControllerAniamtionProgress.close();
     inputAniamtionProgress.close();
+    streamControllerQuestionNow.close();
+    inputQuestionNow.close();
   }
 }
