@@ -70,18 +70,26 @@ class QuizScreenController {
     inputAniamtionProgress.add(animationProgressPercent);
   }
   void forwardAnimation() {
+    animationController.reset();
     animationController.forward();
     animationController.addListener(() {
       animationProgressPercent = tween.evaluate(animationController) as double;
-      inputDataTime.add((animationProgressPercent * 30).toInt());
-                inputAniamtionProgress.add(animationProgressPercent);
+      inputDataTime.add((animationProgressPercent * 31).toInt());
+      inputAniamtionProgress.add(animationProgressPercent);
+    });
+  }
 
+  void restartAnimation() {
+    animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        nextQuestion();
+      }
     });
   }
 
   void makeCounter() {
+    forwardAnimation();
     inputDataTime.add((animationProgressPercent * 30).toInt());
-
   }
 
   void nextQuestion() {
