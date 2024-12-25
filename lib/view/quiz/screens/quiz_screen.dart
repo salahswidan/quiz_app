@@ -104,7 +104,9 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
         child: CustomMaterialBotton(
             text: "Next",
-            onPressed: () {},
+            onPressed: () {
+              _quizScreenController.nextQuestion();
+            },
             isActiveOutputStream: _quizScreenController.isActiveOutputStream),
       ),
     );

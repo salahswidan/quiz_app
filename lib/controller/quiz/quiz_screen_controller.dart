@@ -100,7 +100,7 @@ class QuizScreenController {
       listCorrectAnswers[questionNow] = gropeValueIndex;
     }
     for (int i in listCorrectAnswers) {
-      print(i);
+   //   print(i);
     }
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (gropeValueIndex != -1) {
