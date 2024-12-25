@@ -37,13 +37,14 @@ class QuizScreenController {
   late StreamController<String> streamControllerQuestionNow;
   late Sink<String> inputQuestionNow;
   late Stream<String> outPutQuestionNow;
+  String _name = "";
 
   QuizScreenController(
       SingleTickerProviderStateMixin vsync, BuildContext context) {
     _context = context;
     animationController = AnimationController(
       vsync: vsync,
-      duration: Duration(seconds: 30),
+      duration: Duration(seconds: 1),
     );
 
     countQuestion = ConstValues.questionList.length;
@@ -105,7 +106,13 @@ class QuizScreenController {
 
   void goToAnswerScreen() {
     Navigator.pushNamedAndRemoveUntil(
-        _context, RoutesName.KAnswersScreen, (predicate) => false, arguments: listCorrectAnswers);
+        _context, RoutesName.KAnswersScreen, (predicate) => false, arguments: {
+      "name": _name,
+      "listCorrectAnswers": listCorrectAnswers,
+        });
+  }
+  void addName(String name) {
+    _name = name;
   }
 
   void nextQuestion() {

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(fontFamily: "main"),
       debugShowCheckedModeBanner: false,
      routes: RouteManager.routes,
-     initialRoute: RoutesName.KQuizScreen,
+     initialRoute: RoutesName.KsplashScreen,
     );
   }
 }
