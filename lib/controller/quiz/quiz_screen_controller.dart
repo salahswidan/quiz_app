@@ -28,6 +28,7 @@ class QuizScreenController {
   late Sink<bool> inputAniamtionStatus;
   late Stream<bool> outPutAniamtionStatus;
   bool animationStatus = true;
+  List<int> listCorrectAnswers = [];
 
   QuizScreenController() {
     countQuestion = ConstValues.questionList.length;
@@ -50,11 +51,10 @@ class QuizScreenController {
 
     streamControllerQuestion = StreamController();
     inputDataQuestion = streamControllerQuestion.sink;
-    outPutStreamQuestion =
-        streamControllerQuestion.stream.asBroadcastStream();
+    outPutStreamQuestion = streamControllerQuestion.stream.asBroadcastStream();
     inputDataQuestion.add(questionNow);
 
-     streamControllerAniamtionStatus = StreamController();
+    streamControllerAniamtionStatus = StreamController();
     inputAniamtionStatus = streamControllerAniamtionStatus.sink;
     outPutAniamtionStatus =
         streamControllerAniamtionStatus.stream.asBroadcastStream();
@@ -73,8 +73,15 @@ class QuizScreenController {
   }
 
   void nextQuestion() {
+     if (questionNow == listCorrectAnswers.length) {
+      listCorrectAnswers.add(gropeValueIndex);
+    }else{
+      listCorrectAnswers[questionNow] = gropeValueIndex;
+    }
+    gropeValueIndex = -1;
+    inputDataGropeValueRadio.add(gropeValueIndex);
     if (questionNow >= ConstValues.questionList.length - 1) {
-          inputAniamtionStatus.add(animationStatus);
+      inputAniamtionStatus.add(animationStatus);
 
       print("con't next question");
     } else {
@@ -87,7 +94,14 @@ class QuizScreenController {
 
   void onTapAtItemRadio(int index) {
     gropeValueIndex = index;
-    animationStatus = false;
+    if (questionNow == listCorrectAnswers.length) {
+      listCorrectAnswers.add(gropeValueIndex);
+    }else{
+      listCorrectAnswers[questionNow] = gropeValueIndex;
+    }
+    for (int i in listCorrectAnswers) {
+      print(i);
+    }
     inputDataGropeValueRadio.add(gropeValueIndex);
     if (gropeValueIndex != -1) {
       isNextActive = true;
