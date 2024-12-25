@@ -4,6 +4,7 @@ import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 import '../../../core/const_values.dart';
 import '../widgets/custom_info_student.dart';
+import '../widgets/custom_question_number_answer_screen.dart';
 
 class AnswersScreen extends StatelessWidget {
   const AnswersScreen({super.key});
@@ -22,6 +23,12 @@ class AnswersScreen extends StatelessWidget {
           CustomInfoStudent(
             name: "Salah Swidan",
             grade: "Grade:   3  /  5",
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          CustomQuestionNumber(
+            order: 1,
           ),
         ],
       ),
