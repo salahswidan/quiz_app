@@ -5,6 +5,7 @@ import 'package:quiz_app_new/core/resources/color_manager.dart';
 import '../../../core/const_values.dart';
 import '../widgets/custom_info_student.dart';
 import '../widgets/custom_question_number_answer_screen.dart';
+import '../widgets/custom_status_answer_question.dart';
 
 class AnswersScreen extends StatelessWidget {
   const AnswersScreen({super.key});
@@ -27,8 +28,17 @@ class AnswersScreen extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          CustomQuestionNumber(
-            order: 1,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomQuestionNumber(
+                  order: 1,
+                ),
+                CustomStatusAnswerQuestion(),
+              ],
+            ),
           ),
         ],
       ),
