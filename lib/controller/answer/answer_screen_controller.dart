@@ -1,6 +1,9 @@
 class AnswerScreenController {
-  late Map _studentAnswers;
+  late Map studentAnswers;
   void getStudentAnswers( Map studentAnswers) {
-    _studentAnswers = studentAnswers;
+    this.studentAnswers = studentAnswers;
+  }
+  void printList() {
+    print(studentAnswers);
   }
 }

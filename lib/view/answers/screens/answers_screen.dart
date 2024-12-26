@@ -24,21 +24,30 @@ class _AnswersScreenState extends State<AnswersScreen> {
     super.initState();
     controller = AnswerScreenController();
   }
+
   @override
   Widget build(BuildContext context) {
-     Map studentAnswers = ModalRoute.of(context)!.settings.arguments as Map;
-     controller.getStudentAnswers(studentAnswers);
-    
+    Map studentAnswers = ModalRoute.of(context)!.settings.arguments as Map;
+    controller.getStudentAnswers(studentAnswers);
+
     return Scaffold(
       backgroundColor: ColorManager.kPrimaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  controller.printList();
+                },
+                child: Text("enter")),
+            SizedBox(
               height: 20,
             ),
             CustomInfoStudent(
-              name: "Salah Swidan",
+              name: controller.studentAnswers["name"],
               grade: "Grade:   3  /  5",
             ),
             SizedBox(
@@ -62,7 +71,7 @@ class _AnswersScreenState extends State<AnswersScreen> {
               separatorBuilder: (context, index) => SizedBox(
                 height: 20,
               ),
-              itemCount: 6,
+              itemCount: controller.studentAnswers["listCorrectAnswers"].length,
             ),
             SizedBox(
               height: 20,
