@@ -1,11 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 class CustomInfoStudent extends StatelessWidget {
   const CustomInfoStudent({
-    super.key, required this.name, required this.grade,
+    super.key,
+    required this.name,
+    required this.grade,
   });
   final String name;
   final String grade;
@@ -23,7 +24,9 @@ class CustomInfoStudent extends StatelessWidget {
               Text(
                 "Name : $name",
                 style: GoogleFonts.baloo2(
-                    fontWeight: FontWeight.bold, fontSize: 21),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 21,
+                    color: ColorManager.kPrimaryColor),
               ),
               SizedBox(
                 height: 15,
@@ -31,7 +34,9 @@ class CustomInfoStudent extends StatelessWidget {
               Text(
                 grade,
                 style: GoogleFonts.baloo2(
-                    fontWeight: FontWeight.w400, fontSize: 21),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 21,
+                    color: ColorManager.kPrimaryColor),
               ),
             ],
           )),
