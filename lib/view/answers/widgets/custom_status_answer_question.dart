@@ -5,8 +5,9 @@ import 'package:quiz_app_new/core/resources/color_manager.dart';
 
 class CustomStatusAnswerQuestion extends StatelessWidget {
   const CustomStatusAnswerQuestion({
-    super.key,
+    super.key, required this.color,
   });
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class CustomStatusAnswerQuestion extends StatelessWidget {
               ],
             )),
         decoration: BoxDecoration(
-          color: ColorManager.kGreenBoldColor,
+          color: color,
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20),
               bottomRight: Radius.circular(20),

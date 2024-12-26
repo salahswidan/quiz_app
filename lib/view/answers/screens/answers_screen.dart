@@ -40,7 +40,7 @@ class _AnswersScreenState extends State<AnswersScreen> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  controller.printList();
+                  controller.compareAnswers();
                 },
                 child: Text("enter")),
             SizedBox(
@@ -64,7 +64,11 @@ class _AnswersScreenState extends State<AnswersScreen> {
                     CustomQuestionNumber(
                       order: 1,
                     ),
-                    CustomStatusAnswerQuestion(),
+                    CustomStatusAnswerQuestion(
+                      color: controller.answers[index]
+                          ? ColorManager.kGreenBoldColor
+                          : Colors.red,
+                    ),
                   ],
                 ),
               ),

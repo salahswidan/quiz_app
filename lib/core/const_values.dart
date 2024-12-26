@@ -18,22 +18,22 @@ class ConstValues {
         question:
             "In what year did the Egypt host the Fifa World Cup for the first time?",
         listAnswer: ["1930", "1934", "1938", "1942"],
-        correctAnswer: "1930"),
+        correctAnswer: 0),
     QuestionModel(
         question: "what is the capital of France?",
         listAnswer: ["Paris", "London", "Berlin", "Madrid"],
-        correctAnswer: "Paris"),
+        correctAnswer: 0),
     QuestionModel(
         question: "What is the capital of Germany?",
         listAnswer: ["Paris", "London", "Berlin", "Madrid"],
-        correctAnswer: "Berlin"),
+        correctAnswer: 2),
     QuestionModel(
         question: "What is the capital of Spain?",
         listAnswer: ["Paris", "London", "Berlin", "Madrid"],
-        correctAnswer: "Madrid"),
+        correctAnswer: 3),
     QuestionModel(
         question: "What is the capital of England?",
         listAnswer: ["Paris", "London", "Berlin", "Madrid"],
-        correctAnswer: "London"),
+        correctAnswer: 1),
   ];
 }
